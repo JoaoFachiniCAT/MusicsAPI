@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from ..source.database import Database
+from source.database import Database
 
 class Generos:
    #create

@@ -37,6 +37,7 @@ def del_artista(artista_id):
 #-----------------------------------clientes#----------------------------------
 @app.route('/clientes', methods=['POST'])
 def insert_cliente():
+    Clientes.cria_cliente()
     return 'Cliente Criado com Sucesso!'
 
 @app.route('/clientes', methods=['GET'])
@@ -148,17 +149,17 @@ def select_planos():
     return Planos.pega_plano()
     
 @app.route('/planos/<int:plano_id>', methods=['GET'])
-def select_planos_id():
-    return Planos.pega_plano_por_id()
+def select_planos_id(plano_id):
+    return Planos.pega_plano_por_id(plano_id)
 
 @app.route('/planos/<int:plano_id>', methods=['PUT'])
-def update_planos():
-    Planos.atualiza_plano()
+def update_planos(plano_id):
+    Planos.atualiza_plano(plano_id)
     return 'Plano atualizado com sucesso!'
 
 @app.route('/planos/<int:plano_id>', methods=['DELETE'])
-def delete_planos():
-    Planos.deleta_plano
+def delete_planos(plano_id):
+    Planos.deleta_plano(plano_id)
     return 'Plano deletado com sucesso!'
 
 app.run(port=5050, host="localhost", debug=True)

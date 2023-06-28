@@ -6,14 +6,11 @@ class Artistas:
     def cria_artista():
 
         banco = Database.connection
-    
         cursor = banco.cursor()
-
         data = request.json
-
+        
         nome = data.get('nome')
         gravadora_id = data.get('gravadora_id')
-
         insert = ('INSERT INTO artistas '
                 '(nome, gravadoras_id)'
                 ' VALUES ("' + nome + '" ,' + str(gravadora_id) + ');'
@@ -125,14 +122,15 @@ class Clientes:
 
         data = request.json
 
+        print(data)
+        
         login = data.get('login')
         senha = data.get('senha')
         planos_id = data.get('plano_id')
         email = data.get('email')
 
-        insert = ('INSERT INTO clientes '
-                '(login, senha, planos_id, email)'
-                ' VALUES ("' + login +'", "' + senha + '", ' + str(planos_id) + ', "' + email +'");'
+        insert = (f'INSERT INTO clientes (login, senha, planos_id, email) \
+            VALUES ("${login}", "${senha}", {str(planos_id)}, "${email}");'
                     )
         cursor.execute(insert)
         banco.commit()
@@ -313,13 +311,13 @@ class Generos:
         select = ('SELECT id, descricao FROM generos where id = ' + str(_genero) +';')
         
         cursor.execute(select)
-        linhas = cursor.fetchone()
+        linhas = cursor.fetchall()
         
         resultado = []
         for linha in linhas:
             resultados = {
             'ID': linha[0],
-            'descrição': linha[1],
+            'descrição': linha[1]
             }
             resultado.append(resultados)
         
@@ -335,8 +333,8 @@ class Generos:
             
             descricao = data.get('descricao')
         
-            update = ('UPDATE generos AS g '
-                    'SET g.descricao = "' + _genero + '";')
+            update = ('UPDATE generos '
+                    'SET descricao = "' + descricao + '" WHERE id = ' + str(_genero) + ';')
         
             cursor.execute(update)
             banco.commit()
@@ -685,15 +683,12 @@ class Planos:
 
     def deleta_plano(plano_id):
         banco = Database.connection
-        
         cursor = banco.cursor()
 
         _plano = plano_id
 
-        delete = ('DELETE FROM planos as p '
-                    'WHERE p.id = ' + str(_plano) + ';')
-
-
+        delete = ('DELETE FROM planos '
+                    'WHERE id = ' + str(_plano) + ';')
         cursor.execute(delete)
         banco.commit()
         cursor.close()
