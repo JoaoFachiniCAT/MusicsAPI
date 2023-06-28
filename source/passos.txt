@@ -1,0 +1,56 @@
+atualizar create de todas as classes
+
+
+Table: clientes
+Columns:
+id int(11) AI PK 
+login varchar(45) 
+senha varchar(45) 
+created datetime 
+modified datetime 
+planos_id int(11) 
+email varchar(50)
+
+
+Table: generos
+Columns:
+id int(11) AI PK 
+descricao varchar(45) 
+created datetime 
+modified datetime
+
+Table: gravadoras
+Columns:
+id int(11) AI PK 
+nome varchar(45) 
+valor_contrato decimal(10,0) 
+vencimento_contrato date 
+created datetime 
+modified datetime
+
+Table: musicas
+Columns:
+id int(11) AI PK 
+nome varchar(45) 
+duracao time 
+generos_id int(11) 
+lancamento date 
+created datetime
+
+Table: planos
+Columns:
+id int(11) AI PK 
+descricao varchar(45) 
+valor decimal(5,2) 
+limite int(11) 
+created datetime 
+modified datetime
+
+create generos OK
+create gravdoras 
+create musicas
+create planos
+
+fazer end point para cada campo para ser atualizado separado
+
+arrumar o resto do Crud
