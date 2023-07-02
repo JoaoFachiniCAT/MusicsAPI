@@ -5,7 +5,7 @@ class Artistas:
  
     def cria_artista():
 
-        banco = Database.connection
+        banco = Database.connect()
         cursor = banco.cursor()
         data = request.json
         
@@ -22,7 +22,7 @@ class Artistas:
         return insert
 
     def get_artistas():
-            banco = Database.connection
+            banco = Database.connect()
             cursor = banco.cursor()
             
             select = ('select * from artistas')
@@ -39,7 +39,7 @@ class Artistas:
             resultados = []
             for linha in linhas:
                 resultado = {
-                'nome da musica': linha[0],
+                'id do artista': linha[0],
                 'nome do artista': linha[1],
                 'nome da gravadora': linha[2],
                 'created': linha[3],
@@ -144,7 +144,7 @@ class Clientes:
         
         data = request.json
         
-        select = ('select id, login, senha, planos_id'
+        select = ('select id, login, senha, planos_id, email'
                    ' from clientes'
                     )
                     
